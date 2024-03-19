@@ -50,15 +50,17 @@ public class SimpleModule<T> implements Module<T> {
     }
 
     @Override
-    public @NotNull Class<T> getMainClassByName(@NotNull Class<T> requiredSuperClass, @NotNull String mainClass) throws ClassNotFoundException {
-        Class<?> clazz = classLoader.loadClass(mainClass);
+    public @NotNull Class<T> getMainClassByName(@NotNull Class<T> requiredSuperClass, @NotNull String mainClass) throws ModuleLoadException {
+        try {
+            Class<?> clazz = classLoader.loadClass(mainClass);
 
-        if (clazz == null) {
-            throw new ClassNotFoundException("Class not found: " + mainClass);
-        } else if (!clazz.getSuperclass().equals(requiredSuperClass)) {
-            throw new ClassNotFoundException("Class " + mainClass + " does not implement " + requiredSuperClass.getName());
-        } else {
+            if (!requiredSuperClass.isAssignableFrom(clazz)) {
+                throw new ModuleLoadException("Class " + mainClass + " does not extend or implement " + requiredSuperClass.getName());
+            }
+
             return (Class<T>) clazz;
+        } catch (ClassNotFoundException e) {
+            throw new ModuleLoadException("Class not found: " + mainClass, e);
         }
     }
 }

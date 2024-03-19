@@ -1,5 +1,6 @@
 package de.interguess.javamoduleloader.module;
 
+import de.interguess.javamoduleloader.exception.ModuleLoadException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +45,7 @@ public interface Module<T> {
      * @param requiredSuperClass the required superclass of the main class
      * @param mainClass          the name of the main class
      * @return the main class of the module
-     * @throws ClassNotFoundException if the main class could not be found
+     * @throws ModuleLoadException if there was an error loading or verifying the main class
      */
-    @NotNull Class<T> getMainClassByName(@NotNull Class<T> requiredSuperClass, @NotNull String mainClass) throws ClassNotFoundException;
+    @NotNull Class<T> getMainClassByName(@NotNull Class<T> requiredSuperClass, @NotNull String mainClass) throws ModuleLoadException;
 }

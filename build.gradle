@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'de.interguess'
+version '1.0-beta'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+}
+
+publishing {
+    repositories {
+        maven {
+            url 'https://repo.interguessweb.de/maven-public/'
+
+            credentials {
+                username System.getenv('INTERGUESS_REPO_USERNAME')
+                password System.getenv('INTERGUESS_REPO_PASSWORD')
+            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId 'java-module-loader'
+        }
+    }
+}

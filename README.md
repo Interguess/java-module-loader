@@ -5,7 +5,7 @@ Java Module loader is a framework to load .jar archives with Java modules and to
 ```gradle
 repositories {
     maven {
-        url 'https://repo.interguessweb.de/maven-public/'
+        url 'https://repo.interguess.de/maven-public/'
     }
 }
 ```
@@ -21,7 +21,7 @@ dependencies {
 <repositories>
     <repository>
         <id>interguess-repo</id>
-        <url>https://repo.interguessweb.de/maven-public/</url>
+        <url>https://repo.interguess.de/maven-public/</url>
     </repository>
 </repositories>
 ```
